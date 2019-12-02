@@ -1,17 +1,17 @@
 <?
-include './database/connect.php';
-include './verify.php';
+include_once './DataAccess/ConnectDB.php';
+include_once './Business/verify.php';
+include_once './Metadata/hostname.php';
 
 $student_code = $_POST['student_code'];
 
 $result = verify(1, $student_code); // function in verify.php, check that for detail
 
-if ($result->num_rows == 0){ 
+if ($result->num_rows == 0) {
     // Send user to login page if no code found
-    header("Location: http://127.0.0.1:8000/login.php");
+    header("Location: " . $hostname . "login.php");
     exit();
-}
-else{
+} else {
     $row = $result->fetch_assoc();
 
     session_start();

@@ -1,7 +1,7 @@
-<?
-include './database/connect.php';
-include './verify.php';
-include './hostname.php';
+<?php
+include_once './DataAccess/ConnectDB.php';
+include_once './Business/verify.php';
+include_once './Metadata/hostname.php';
 
 $organization_code = $_POST['organization_code'];
 

@@ -1,7 +1,7 @@
-<?
+<?php
 // Check whether user input match data or not
 function verify($type, $code){
-    $connection = MySQLConnectivity::get_instance()->get_connection();
+    $connection = MySQLConnectivity::getInstance()->getConnection();
     
     // $type = 1: student
     // $type = 2: teacher

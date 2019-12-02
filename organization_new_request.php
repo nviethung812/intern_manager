@@ -1,3 +1,40 @@
+<?php
+
+include_once './DataAccess/ConnectDB.php';
+include_once './DataAccess/MySQLDA.php';
+include_once './Metadata/tablename.php';
+
+if (isset($_POST["apply_new_request"])) {
+    session_start();
+
+    $query = new MySQLDA();
+
+    $organization_id = $_SESSION["id"];
+    $subject = $_POST["title"];
+    $short_description = $_POST["description"];
+    $amount = $_POST["amount"];
+    $date_submitted = date("Y-m-d");
+    $status = $_POST["status"];
+
+    $data = [
+        "organization_id" => $organization_id,
+        "subject" => $subject,
+        "short_description" => $short_description,
+        "amount" => $amount,
+        "date_submitted" => $date_submitted,
+        "status" => $status
+    ];
+    
+    if ($query->insert($intern_organization_requests, $data) === TRUE) {
+        echo '<script language="javascript">';
+        echo 'alert("New Request Created!")';
+        echo '</script>';
+    } else {
+        echo $connection->error;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,36 +75,3 @@
 
 </html>
 
-<?php
-
-include './database/connect.php';
-
-
-if (isset($_POST["apply_new_request"])) {
-    session_start();
-
-
-    $connection = MySQLConnectivity::get_instance()->get_connection();
-
-    $organization_id = $_SESSION["id"];
-    $subject = $_POST["title"];
-    $short_description = $_POST["description"];
-    $amount = $_POST["amount"];
-    $date_submitted = date("Y-m-d");
-    $status = $_POST["status"];
-
-    echo var_dump($organization_id);
-
-    $query = "INSERT INTO intern_organization_requests (organization_id, subject, short_description, amount, date_submitted, status) 
-            VALUES (" . $organization_id . ", '" . $subject . "','" . $short_description . "'," . $amount . ",'" . $date_submitted . "'," . $status . ")";
-
-    if ($connection->query($query) === TRUE){
-        echo '<script language="javascript">';
-        echo 'alert("New Request Created!")';
-        echo '</script>';
-    }
-    else {
-        echo $connection->error;
-    }
-
-}
