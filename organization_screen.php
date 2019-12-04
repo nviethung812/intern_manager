@@ -35,10 +35,14 @@ $result = $query->select($intern_organization_requests, "*", "organization_id='"
     <?php
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-
+            $organization_id = $row["organization_id"];
             $subject = $row["subject"];
             $description = $row["short_description"];
             $amount = $row["amount"];
+            $requestId = $row["id"];
+            $statusValue = $row["status"];
+
+
             switch ($row["status"]) {
                 case 1000:
                     $status = "Undone";
@@ -57,7 +61,13 @@ $result = $query->select($intern_organization_requests, "*", "organization_id='"
                     break;
             }
 
-            $str = '<form method="post" action="organization_edit_request.php"><div class="w3-card-4" style="width:30%;">
+            $str = '<form method="post" action="organization_edit_request.php"><div class="w3-card-4 " style="width:30%;">
+                        <input type="hidden" name="request_id" value="'.$requestId.'">
+                        <input type="hidden" name="subject" value="'.$subject.'">
+                        <input type="hidden" name="description" value="'.$description.'">
+                        <input type="hidden" name="amount" value="'.$amount.'">
+                        <input type="hidden" name="status" value="'.$statusValue.'">
+            
                         <header class="w3-container w3-blue">
                             <h2>' . $subject . '</h2>
                         </header>

@@ -40,7 +40,25 @@ class MySQLDA
 
     public function update($table, $data, $condition)
     {
-        $sql = "UPDATE " . $table . " SET " . $data . " WHERE " . $condition;
+        //Todo
+        // Build query update
+        // Thục thi query
+        // Tra lại kết qủa sau khi update
+
+        // Init empty update list
+        $updateList = "";
+
+        // Append new data to update list
+        foreach ($data as $key => $value) 
+        {
+            $updateList .= $key . " = '" . $value . "',";
+        }
+
+        // Remove last "," 
+        $updateList = trim($updateList, ",");
+
+        // update query
+        $sql = "UPDATE " . $table . " SET " . $updateList . " WHERE " . $condition;
 
         return $this->_connection->query($sql);
     }

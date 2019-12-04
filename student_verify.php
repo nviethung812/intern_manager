@@ -1,4 +1,4 @@
-<?
+<?php
 include_once './DataAccess/ConnectDB.php';
 include_once './Business/verify.php';
 include_once './Metadata/hostname.php';
@@ -21,4 +21,7 @@ if ($result->num_rows == 0) {
     $_SESSION["code"] = $row["student_code"];
     $_SESSION["name"] = $row["first_name"];
     $_SESSION["type"] = 1;
+
+    header("Location: " . $hostname . "student_screen.php");
+    exit();
 }

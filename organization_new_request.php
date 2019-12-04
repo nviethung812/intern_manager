@@ -10,7 +10,7 @@ if (isset($_POST["apply_new_request"])) {
     $query = new MySQLDA();
 
     $organization_id = $_SESSION["id"];
-    $subject = $_POST["title"];
+    $subject = $_POST["subject"];
     $short_description = $_POST["description"];
     $amount = $_POST["amount"];
     $date_submitted = date("Y-m-d");
@@ -26,11 +26,9 @@ if (isset($_POST["apply_new_request"])) {
     ];
     
     if ($query->insert($intern_organization_requests, $data) === TRUE) {
-        echo '<script language="javascript">';
-        echo 'alert("New Request Created!")';
-        echo '</script>';
+        header("Location: " . $hostname . "organization_screen.php");
     } else {
-        echo $connection->error;
+        echo "Creation failed!";
     }
 }
 ?>
@@ -52,7 +50,7 @@ if (isset($_POST["apply_new_request"])) {
         <h2 class="w3-text-blue">Create New Request</h2>
         <p>
             <label class="w3-text-blue"><b>Title</b></label>
-            <input class="w3-input w3-border" name="title" type="text"></p>
+            <input class="w3-input w3-border" name="subject" type="text"></p>
         <p>
             <label class="w3-text-blue"><b>Description</b></label>
             <input class="w3-input w3-border" name="description" type="text"></p>
