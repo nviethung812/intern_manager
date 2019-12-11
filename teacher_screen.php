@@ -62,6 +62,7 @@ if (isset($_POST["request_approve"]))
                             <tr class="w3-light-grey">
                                 <th>Title</th>
                                 <th>Description</th>
+                                <th>Organization</th>
                                 <th>Amount</th>
                                 <th>Status</th>
                                 <th></th>
@@ -109,9 +110,13 @@ if (isset($_POST["request_approve"]))
                     ';
                 }
 
+                $result = $query->select($intern_organization_profile, "*", "id = " . $organization_id);
+                $organization = $result->fetch_assoc();
+
                 $requests .= '<tr>
                                 <td>' . $subject . '</td>
                                 <td>' . $description . '</td>
+                                <td>' . $organization["organization_name"] . '</td>
                                 <td>' . $amount . '</td>
                                 <td>' . $status . '</td>
                                 <td>

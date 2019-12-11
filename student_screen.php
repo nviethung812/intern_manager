@@ -7,7 +7,10 @@ include_once "./Metadata/tablename.php";
 session_start();
 $student_id = $_SESSION["id"];
 $query = new MySQLDA();
-$result = $query->select($intern_organization_requests, "*", "status = 3000");
+$request = $query->select($intern_organization_requests, "*", "status = 3000");
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -28,20 +31,21 @@ $result = $query->select($intern_organization_requests, "*", "status = 3000");
     <br>
     <br>
     <?php
-        if ($result->num_rows > 0) 
+        if ($request->num_rows > 0) 
         {
             $requests = '<table class="w3-table-all w3-hoverable">';
             $requests .= '<thead>
                             <tr class="w3-light-grey">
                                 <th>Title</th>
                                 <th>Description</th>
+                                <th>Organization</th>
                                 <th>Amount</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>';
 
-            while ($row = $result->fetch_assoc()) 
+            while ($row = $request->fetch_assoc()) 
             {
                 $organization_id = $row["organization_id"];
                 $subject = $row["subject"];
@@ -59,15 +63,19 @@ $result = $query->select($intern_organization_requests, "*", "status = 3000");
                         break;
                 }
 
+                $result = $query->select($intern_organization_profile, "*", "id = " . $organization_id);
+                $organization = $result->fetch_assoc();
+
                 $requests .= '<tr>
                                 <td>' . $subject . '</td>
                                 <td>' . $description . '</td>
+                                <td>' . $organization["organization_name"] . '</td>
                                 <td>' . $amount . '</td>
                                 <td>' . $status . '</td>
                                 <td>
-                                    <form method="post" action="">
+                                    <form method="post" action="student_request_detail.php">
                                         <input type="hidden" name="request_id" value="'.$requestId.'">
-                                        <button name="request_detail" class="w3-button w3-white w3-border w3-border-blue w3-left w3-margin-right">Detail</button>
+                                        <button class="w3-button w3-white w3-border w3-border-blue w3-left w3-margin-right">Detail</button>
                                     </form>
                                 </td>
                             </tr>';  
