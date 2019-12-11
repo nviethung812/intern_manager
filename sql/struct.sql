@@ -1,3 +1,6 @@
+DROP DATABASE intern_manager;
+CREATE DATABASE intern_manager;
+USE intern_manager;
 CREATE TABLE IF NOT EXISTS intern_organization_profile
 (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -8,7 +11,6 @@ CREATE TABLE IF NOT EXISTS intern_organization_profile
     home_page VARCHAR(100) NOT NULL,
     tax_number TEXT
 );
-
 
 CREATE TABLE IF NOT EXISTS intern_organization_requests
 (

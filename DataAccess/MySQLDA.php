@@ -11,12 +11,15 @@ class MySQLDA
 
     public function select($table, $attr, $condition)
     {
-        if ($condition == "") {
+        if ($condition == "") 
+        {
             $sql = "SELECT " . $attr . " FROM " . $table;
-        } else {
+        } 
+        else 
+        {
             $sql = "SELECT " . $attr . " FROM " . $table . " WHERE " . $condition;
         }
-
+        
         return $this->_connection->query($sql);
     }
 
@@ -25,7 +28,8 @@ class MySQLDA
         $fieldList = "";
         $valueList = "";
 
-        foreach ($data as $key => $value) {
+        foreach ($data as $key => $value) 
+        {
             $fieldList .= $key . ",";
             $valueList .= "'" . $value . "',";
         }
@@ -59,7 +63,7 @@ class MySQLDA
 
         // update query
         $sql = "UPDATE " . $table . " SET " . $updateList . " WHERE " . $condition;
-
+    //    var_dump ($sql);
         return $this->_connection->query($sql);
     }
 
@@ -67,5 +71,10 @@ class MySQLDA
     {
         $sql = "DELETE FROM " . $table . " WHERE " . $condition;
         return $this->_connection->query($sql);
+    }
+
+    public function lastId()
+    {
+        return $this->_connection->insert_id;
     }
 }

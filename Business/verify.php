@@ -11,7 +11,7 @@ function verify($type, $code){
             $query = "SELECT * FROM intern_students WHERE student_code = '".$code."';";
             break;
         case 2:
-            $query = "SELECT * FROM intern_students WHERE student_code = '".$code."';";
+            $query = "SELECT * FROM intern_teachers WHERE teacher_code = '".$code."';";
             break;
         case 3:
             $query = "SELECT * FROM intern_organization_profile WHERE tax_number = '".$code."';";
