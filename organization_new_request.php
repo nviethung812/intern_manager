@@ -21,10 +21,6 @@ if (isset($_POST["apply_new_request"]))
     $amount = $_POST["amount"];
     $date_submitted = date("Y-m-d");
     $status = $_POST["status"];
-    
-
-
-    
 
     $data = [
         "organization_id" => $organization_id,

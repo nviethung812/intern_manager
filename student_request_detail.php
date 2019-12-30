@@ -5,6 +5,7 @@ include_once "./DataAccess/ConnectDB.php";
 include_once "./Metadata/tablename.php";
 
 session_start();
+
 $student_id = $_SESSION["id"];
 $query = new MySQLDA();
 
@@ -27,6 +28,12 @@ $organization = $result->fetch_assoc();
 
 $reqAbilities = $query->select($intern_organization_request_abilities, "*", "organization_request_id = " . $requestId);
 
+$register = $query->select($intern_organization_request_assignment, "*", "organization_request_id = " . $requestId . " AND student_id = " . $student_id);
+if ($register->num_rows > 0)
+{
+    $registered = TRUE;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +51,13 @@ $reqAbilities = $query->select($intern_organization_request_abilities, "*", "org
     <form class="w3-left" action="student_screen.php">
         <button class="w3-button w3-border w3-hover-blue">Back to Student screen</button>
     </form>
+    <?php if ($registered) echo 
+    '<form class="w3-right" action="student_cancel_request.php" method="POST">
+        <input type="hidden" name="requestId" value="' . $requestId . '">
+        <input type="hidden" name="studentId" value="' . $student_id . '">
+        <button class="w3-button w3-red">Cancel request</button>
+    </form>';?>
+
     <div class="w3-display-middle w3-half">
         <div class="w3-padding w3-card-4 w3-light-grey" style="width:100%">
             <div class="">
@@ -83,11 +97,26 @@ $reqAbilities = $query->select($intern_organization_request_abilities, "*", "org
             </table>
             <br>
             <div class="w3-section w3-center">
-                <button class="w3-button w3-blue">Register</button>
+                <button class="w3-button w3-blue" onclick="document.getElementById('id01').style.display='block'" <?php if ($registered) echo "disabled";?>><?php if ($registered) echo "Already registered"; else echo "Register";?></button>
             </div>
             <br>
         </div>
 
+    </div>
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+        <div class="w3-center"><br>
+            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+        </div>
+
+            <?php include "student_register.php"?>
+
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+            <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        </div>
+
+        </div>
     </div>
 </body>
 </html>

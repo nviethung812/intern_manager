@@ -19,7 +19,6 @@ class MySQLDA
         {
             $sql = "SELECT " . $attr . " FROM " . $table . " WHERE " . $condition;
         }
-        
         return $this->_connection->query($sql);
     }
 

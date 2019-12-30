@@ -82,7 +82,10 @@ CREATE TABLE IF NOT EXISTS intern_organization_request_assignment
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     organization_request_id INT NOT NULL,
     student_id INT NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
     create_date DATETIME NOT NULL,
+    status INT NOT NULL,
     FOREIGN KEY (organization_request_id) REFERENCES intern_organization_requests(id),
     FOREIGN KEY (student_id) REFERENCES intern_students(id)
 );

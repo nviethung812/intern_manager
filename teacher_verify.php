@@ -7,11 +7,14 @@ $teacher_code = $_POST['teacher_code'];
 
 $result = verify(2, $teacher_code); // function in verify.php, check that for detail
 
-if ($result->num_rows == 0) {
+if ($result->num_rows == 0) 
+{
     // Send user to login page if no code found
-    header("Location: " . $hostname . "login.php");
+    header("Location: /login.php");
     exit();
-} else {
+} 
+else 
+{
     $row = $result->fetch_assoc();
 
     session_start();
@@ -22,6 +25,6 @@ if ($result->num_rows == 0) {
     $_SESSION["name"] = $row["full_name"];
     $_SESSION["type"] = 2;
 
-    header("Location: " . $hostname . "teacher_screen.php");
+    header("Location: /teacher_screen.php");
     exit();
 }

@@ -12,6 +12,7 @@ $query = new MySQLDA();
 
 $result = $query->select($intern_organization_requests, "*", "organization_id='" . $organization_id . "'");
 
+
 ?>
 
 <!DOCTYPE html>
@@ -97,6 +98,10 @@ $result = $query->select($intern_organization_requests, "*", "organization_id='"
         }
         $requests .= '</table>';
         echo $requests;
+    }
+    else 
+    {
+        echo "<p>Request list is empty. Click button above to create one.</p>";
     }
     ?>
 
