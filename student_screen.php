@@ -24,6 +24,9 @@ $request = $query->select($intern_organization_requests, "*", "status = 3000");
     <title>Student Screen</title>
 </head>
 <body>
+    <form class="w3-left" action="student_edit_profile.php">
+        <button class="w3-button w3-border w3-hover-blue">Edit Profile</button>
+    </form>
     <form class="w3-right" action="login.php">
         <button class="w3-button w3-border w3-hover-red">Logout</button>
     </form>

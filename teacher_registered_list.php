@@ -12,6 +12,21 @@ $requestId = $_POST["request_id"];
 
 $registered = $query->select($intern_student_register, "*", "organization_request_id = " . $requestId);
 
+if (isset($_POST["apply_assign"]))
+{
+    $studentId = $_POST["student_id"];
+    $submitDate = date("Y/m/d");
+    $data = [
+        "organization_request_id" => $requestId,
+        "student_id" => $studentId,
+        "create_date" => $submitDate,
+        "end_date" => $submitDate,
+        "start_date" => $submitDate,
+        "status" => 1
+    ];
+    $query->insert($intern_organization_request_assignment, $data);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -40,9 +55,25 @@ $registered = $query->select($intern_student_register, "*", "organization_reques
                         $student = $query->select($intern_students, "*", "id = " . $studentId);
                         $student = $student->fetch_assoc();
 
+                        $checkAssign = $query->select($intern_organization_request_assignment, "*", "student_id = " . $studentId . " AND organization_request_id = " . $requestId);
+
+                        if ($checkAssign->num_rows > 0)
+                        {
+                            $assigned = "disabled";
+                        }
+                        else
+                        {
+                            $assigned = "";
+                        }
+
                         $name = $student["last_name"] . " " . $student["sur_name"] . " " . $student["first_name"];
                         echo
                         '<li class="w3-bar">
+                            <form class="w3-right" action="" method="POST">
+                                <input type="hidden" name="student_id" value="' . $student["id"] . '">
+                                <input type="hidden" name="request_id" value="' . $requestId . '">
+                                <input class="w3-margin-right w3-button w3-border w3-hover-blue" type="submit" name="apply_assign" value="Assign" ' . $assigned . '></input>
+                            </form>
                             <img src="img/ava.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
                             <div class="w3-bar-item">
                                 <span class="w3-large">' . $name . '</span><br>
@@ -50,6 +81,10 @@ $registered = $query->select($intern_student_register, "*", "organization_reques
                             </div>
                         </li>';
                     }
+                }
+                else
+                {
+                    echo "Registered list is empty";
                 }
 
             ?>
