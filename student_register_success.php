@@ -9,22 +9,17 @@ include_once './Metadata/tablename.php';
 
 $requestId = $_POST["requestId"];
 $studentId = $_POST["studentId"];
-$startDate = $_POST["startDate"];
-$endDate = $_POST["endDate"];
-$createDate = date("Y/m/d");
+$submitDate = date("Y/m/d");
 
 $query = new MySQLDA();
 
 $data = [
     "organization_request_id" => $requestId,
     "student_id" => $studentId,
-    "start_date" => $startDate,
-    "end_date" => $endDate,
-    "create_date" => $createDate,
-    "status" => 1
+    "submit_date" => $submitDate,
 ];
 
-if ($query->insert($intern_organization_request_assignment, $data) == TRUE)
+if ($query->insert($intern_student_register, $data) == TRUE)
 {
     echo "<script>alert('Register Success! Back to student screen ...'); 
                 window.location.href='/student_screen.php'</script>";

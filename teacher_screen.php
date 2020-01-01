@@ -9,32 +9,6 @@ $teacher_id = $_SESSION["id"];
 $query = new MySQLDA();
 $result = $query->select($intern_organization_requests, "*", "status = 2000 or status = 3000 or status = 4000 or status = 5000 ORDER BY id DESC");
 
-if (isset($_POST["request_reject"]))
-{
-
-    $requestId = $_POST["request_id"];
-
-    $data = [
-        "status" => 5000
-    ];
-    $condition = "id = " . $requestId;
-    $query->update($intern_organization_requests, $data, $condition);
-    header("Refresh:0");
-}
-
-if (isset($_POST["request_approve"]))
-{
-
-    $requestId = $_POST["request_id"];
-
-    $data = [
-        "status" => 3000
-    ];
-    $condition = "id = " . $requestId;
-    $query->update($intern_organization_requests, $data, $condition);
-    header("Refresh:0");
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +38,9 @@ if (isset($_POST["request_approve"]))
                                 <th>Description</th>
                                 <th>Organization</th>
                                 <th>Amount</th>
+                                <th>Registered</th>
                                 <th>Status</th>
+                                <th></th>
                                 <th></th>
                             </tr>
                         </thead>';
@@ -82,39 +58,69 @@ if (isset($_POST["request_approve"]))
 
                 switch ($row["status"]) {
                     case 1000:
+                        $disabled = FALSE;
+                        $waitingApproved = FALSE;
                         $status = "Undone";
                         break;
                     case 2000:
                         $status = "Waiting for approved";
                         $waitingApproved = TRUE;
+                        $disabled = FALSE;
                         break;
                     case 3000:
+                        $disabled = FALSE;
+                        $waitingApproved = FALSE;
                         $status = "Waiting for registered";
                         break;
                     case 4000:
+                        $disabled = TRUE;
+                        $waitingApproved = FALSE;
                         $status = "Stop register";
                         break;
                     case 5000:
+                        $disabled = TRUE;
+                        $waitingApproved = FALSE;
                         $status = "Rejected";
                         break;
                 }
 
                 $detailButton = '
-                    <form method="post" action="">
+                    <form class="w3-left" method="post" action="teacher_request_detail.php">
                         <input type="hidden" name="request_id" value="'.$requestId.'">
-                        <button class="w3-button w3-white w3-border w3-border-blue w3-left w3-margin-right">Detail</button>
+                        <button class="w3-button w3-white w3-border w3-border-blue w3-margin-right">Detail</button>
                     </form>
                 ';
 
                 $assignButton = '
-                    <form method="post" action="">
-                        <input type="hidden" name="request_id" value="'.$requestId.'">
-                        <button class="w3-button w3-white w3-border w3-border-blue w3-left w3-margin-right">Assign</button>
-                    </form>
-                ';
+                    <form method="post" action="teacher_assign.php">
+                        <input type="hidden" name="request_id" value="'.$requestId.'">';
+
+                if ($disabled)
+                {
+                    $assignButton .= 
+                    '<button class="w3-button w3-white w3-border w3-border-blue w3-margin-right" disabled>Assign</button>';
+                }
+                else
+                {
+                    $assignButton .= 
+                    '<button class="w3-button w3-white w3-border w3-border-blue w3-margin-right">Assign</button>';
+                }
+                        
+                $assignButton .= '</form>';
 
                 $org_result = $query->select($intern_organization_profile, "*", "id = " . $organization_id);
                 $organization = $org_result->fetch_assoc();
+
+                $register = $query->select($intern_student_register, "*", "organization_request_id = " . $requestId);
+                if ($register->num_rows > 0)
+                {
+                    $registered = $register->num_rows;
+                }
+                else
+                {
+                    $registered = 0;
+                }
+
                 if ($row["status"] == 2000)
                 {
                     $color = "style='color: red;'";
@@ -132,9 +138,13 @@ if (isset($_POST["request_approve"]))
                                 <td>' . $description . '</td>
                                 <td>' . $organization["organization_name"] . '</td>
                                 <td>' . $amount . '</td>
+                                <td>' . $registered . '</td>
                                 <td>' . $status . '</td>
                                 <td>
-                                    ' . $assignButton . $detailButton . '
+                                    ' . $assignButton . '
+                                </td>
+                                <td>
+                                    ' . $detailButton . '
                                 </td>
                             </tr>';  
             }

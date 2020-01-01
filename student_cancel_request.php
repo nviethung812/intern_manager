@@ -14,7 +14,7 @@ $studentId = $_POST["studentId"];
 
 $condition = "organization_request_id = " . $requestId . " AND student_id = " . $studentId;
 
-if ($query->delete($intern_organization_request_assignment, $condition) == TRUE)
+if ($query->delete($intern_student_register, $condition) == TRUE)
 {
     echo "<script>alert('Cancel request success! Back to student screen ...'); 
                 window.location.href='/student_screen.php'</script>";
