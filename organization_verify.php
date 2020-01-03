@@ -9,7 +9,7 @@ $result = verify(3, $organization_code); // function in verify.php, check that f
 if ($result->num_rows == 0) 
 {
     // Send user to login page if no code found
-    header("Location: /login.php");
+    header("Location: ./login.php");
     exit();
 } 
 else 
@@ -24,6 +24,6 @@ else
     $_SESSION["name"] = $row["organization_name"];
     $_SESSION["type"] = 3;
 
-    header("Location: /organization_screen.php");
+    header("Location: ./organization_screen.php");
     exit();
 }

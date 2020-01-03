@@ -9,7 +9,7 @@ $result = verify(1, $student_code); // function in verify.php, check that for de
 if ($result->num_rows == 0) 
 {
     // Send user to login page if no code found
-    header("Location: /login.php");
+    header("Location: ./login.php");
     exit();
 } 
 else 
@@ -24,6 +24,6 @@ else
     $_SESSION["name"] = $row["first_name"];
     $_SESSION["type"] = 1;
 
-    header("Location: /student_screen.php");
+    header("Location: ./student_screen.php");
     exit();
 }

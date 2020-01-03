@@ -58,7 +58,7 @@ if (isset($_POST["request_reject"]))
     ];
     $condition = "id = " . $requestId;
     $query->update($intern_organization_requests, $data, $condition);
-    header("Location: /teacher_screen.php");
+    header("Location: ./teacher_screen.php");
 }
 
 if (isset($_POST["request_approve"]))
@@ -71,7 +71,7 @@ if (isset($_POST["request_approve"]))
     ];
     $condition = "id = " . $requestId;
     $query->update($intern_organization_requests, $data, $condition);
-    header("Location: /teacher_screen.php");
+    header("Location: ./teacher_screen.php");
 }
 
 

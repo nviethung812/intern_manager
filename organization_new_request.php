@@ -49,7 +49,7 @@ if (isset($_POST["apply_new_request"]))
                 $query->insert($intern_organization_request_abilities, $abilityData);
             }
         }
-        header("Location: /organization_screen.php");
+        header("Location: ./organization_screen.php");
     } 
     else 
     {
