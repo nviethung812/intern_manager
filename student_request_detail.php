@@ -33,6 +33,10 @@ if ($register->num_rows > 0)
 {
     $registered = TRUE;
 }
+else
+{
+    $registered = FALSE;
+}
 
 $register_student = $query->select($intern_student_register, "*", "organization_request_id = " . $requestId);
 if ($register_student->num_rows > 0)

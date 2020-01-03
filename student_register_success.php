@@ -22,12 +22,12 @@ $data = [
 if ($query->insert($intern_student_register, $data) == TRUE)
 {
     echo "<script>alert('Register Success! Back to student screen ...'); 
-                window.location.href='/student_screen.php'</script>";
+                window.location.href='./student_screen.php'</script>";
 }
 else
 {
     echo "<script>alert('Register Fail! Back to student screen ...'); 
-                window.location.href='/student_screen.php'</script>";
+                window.location.href='./student_screen.php'</script>";
 }
 
 

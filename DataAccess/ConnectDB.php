@@ -4,7 +4,7 @@ class MySQLConnectivity{
     // Database metadata
     private $_hostname = "127.0.0.1";
     private $_username = "root";
-    private $_password = "mypass";
+    private $_password = "";
     private $_database = "intern_manager";
 
     private $_connection;
