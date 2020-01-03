@@ -29,13 +29,17 @@ $assigned = $query->select($intern_organization_request_assignment, "*", "organi
     </form>
     <form class="" action="teacher_registered_list.php" method="POST">
         <input type="hidden" name="request_id" value="<?php echo $requestId; ?>">
-        <button class="w3-margin-right w3-button w3-border w3-hover-blue">Registerd List</button>
+        <button class="w3-margin-right w3-button w3-border w3-hover-blue">Registered List</button>
     </form>
     <form class="" action="teacher_unassigned_list.php" method="POST">
         <input type="hidden" name="request_id" value="<?php echo $requestId; ?>">
         <button class="w3-margin-top w3-button w3-border w3-hover-blue">Unassigned List</button>
     </form>
     <div class="w3-container w3-display-topmiddle w3-margin-top w3-half">
+        <h2 class="w3-center">
+            Assigned List
+        </h2>
+        <br>
         <ul class="w3-ul w3-card-4">
         <?php
             if ($assigned->num_rows > 0)
@@ -49,6 +53,12 @@ $assigned = $query->select($intern_organization_request_assignment, "*", "organi
                     $name = $student["last_name"] . " " . $student["sur_name"] . " " . $student["first_name"];
                     echo
                     '<li class="w3-bar">
+                        <form class="w3-right" action="teacher_view_student.php" method="POST">
+                            <input type="hidden" name="student_id" value="' . $studentId . '">
+                            <input type="hidden" name="request_id" value="' . $requestId . '">
+                            <input type="hidden" name="type" value="1">
+                            <input class="w3-margin-right w3-button w3-border w3-hover-blue" type="submit" value="Detail"></input>
+                        </form>
                         <img src="img/ava.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
                         <div class="w3-bar-item">
                             <span class="w3-large">' . $name . '</span><br>
@@ -56,6 +66,10 @@ $assigned = $query->select($intern_organization_request_assignment, "*", "organi
                         </div>
                     </li>';
                 }
+            }
+            else
+            {
+                echo "<br><h5 class='w3-center'>Assigned list is empty.</h5><br>";
             }
         
         ?>

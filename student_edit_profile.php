@@ -42,7 +42,7 @@ if (isset($_POST["apply_edit"]))
             if ($query->insert($intern_students_ability, $abilityData) == TRUE)
             {
                 echo "<script>alert('Edit Success! Back to student screen ...'); 
-                    window.location.href='/student_screen.php'</script>";
+                    window.location.href='./student_screen.php'</script>";
             }
             
         }

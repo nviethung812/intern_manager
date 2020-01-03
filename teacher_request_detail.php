@@ -13,7 +13,7 @@ $requestId = $_POST["request_id"];
 
 $result = $query->select($intern_organization_requests, "*", "id = " . $requestId);
 $request = $result->fetch_assoc();
-
+$waitingApproved = FALSE;
 switch ($request["status"]) {
     case 1000:
         $status = "Undone";

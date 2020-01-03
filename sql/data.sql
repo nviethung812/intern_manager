@@ -2,6 +2,10 @@ INSERT INTO intern_students(student_code, first_name, sur_name, last_name, date_
 ("16001792", "Hung", "Viet", "Nguyen",'1997-08-12', '2016-09-12','K61A3');
 INSERT INTO intern_students(student_code, first_name, sur_name, last_name, date_of_birth, join_date, class_name) VALUES
 ("16001790", "Hieu", "Minh", "Hieu",'1998-09-16', '2016-09-12','K61A3');
+INSERT INTO intern_students(student_code, first_name, sur_name, last_name, date_of_birth, join_date, class_name) VALUES
+("16001782", "Ha", "Hong", "Dao",'1990-01-15', '2016-09-12','K61A3');
+INSERT INTO intern_students(student_code, first_name, sur_name, last_name, date_of_birth, join_date, class_name) VALUES
+("16001780", "Hieu", "Hieu", "Hieu",'1998-05-26', '2016-09-12','K61A3');
 
 INSERT INTO intern_teachers(teacher_code, full_name, sex) VALUES
 ("22222222", "The Rock", "Male");
