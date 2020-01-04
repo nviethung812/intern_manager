@@ -58,7 +58,7 @@ if (isset($_POST["apply_assign"]))
             while ($row = $students->fetch_assoc())
             {
                 $studentId = $row["id"];
-                $checkAssign = $query->select($intern_organization_request_assignment, "*", "student_id = " . $studentId . " AND organization_request_id = " . $requestId);
+                $checkAssign = $query->select($intern_organization_request_assignment, "*", "student_id = " . $studentId);
 
                 if ($checkAssign->num_rows > 0)
                 {
